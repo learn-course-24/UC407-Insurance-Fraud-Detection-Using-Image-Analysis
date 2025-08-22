@@ -14,9 +14,6 @@ import base64
 from fpdf import FPDF
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.metrics.pairwise import cosine_similarity
-import plotly.graph_objs as go
-import plotly.utils
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
@@ -322,6 +319,37 @@ def dashboard_api():
     """API endpoint for dashboard data"""
     stats = fraud_detector.get_dashboard_stats()
     return jsonify(stats)
+
+@app.route('/api/export_claims')
+def export_claims():
+    """Export all claims to CSV"""
+    try:
+        conn = sqlite3.connect('fraud_detection.db')
+        df = pd.read_sql_query("SELECT * FROM claims", conn)
+        conn.close()
+        
+        # Create CSV in memory
+        output = io.StringIO()
+        df.to_csv(output, index=False)
+        output.seek(0)
+        
+        # Create response
+        response = app.response_class(
+            output.getvalue(),
+            mimetype='text/csv',
+            headers={"Content-disposition": "attachment; filename=fraud_claims_export.csv"}
+        )
+        return response
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({"error": "Endpoint not found"}), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    return jsonify({"error": "Internal server error"}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
