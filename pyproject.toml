@@ -6,6 +6,7 @@ authors = ["Your Name <you@example.com>"]
 requires-python = ">=3.11"
 dependencies = [
     "flask>=3.1.2",
+    "fpdf>=1.7.2",
     "fpdf2>=2.8.4",
     "matplotlib>=3.10.5",
     "numpy>=2.3.2",
