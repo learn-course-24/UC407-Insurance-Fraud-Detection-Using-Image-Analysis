@@ -1,0 +1,95 @@
+Title: AI-Powered Insurance Fraud Detection Using Image Analysis
+
+Description:
+Build an AI/ML application that detects fraudulent insurance claims by analyzing uploaded images (e.g., car accidents, home damage). The system uses computer vision models to identify image tampering, inconsistencies, or reused stock images. The platform provides an intelligent dashboard, fraud detection reports, and real-time anomaly alerts.
+
+✅ Core Features
+1. Image Upload & Preprocessing
+
+Support multiple image uploads (PNG, JPG).
+
+Automated preprocessing: resize, normalize, enhance clarity.
+
+Metadata extraction (EXIF data like timestamp, GPS).
+
+2. AI/ML Model (Fraud Detection)
+
+Use CNN-based models (ResNet, EfficientNet, or YOLO) for image anomaly detection.
+
+Detect:
+
+Duplicate image claims (cross-check database).
+
+Edited/tampered areas (noise inconsistencies, splicing).
+
+Inconsistent metadata (location/time mismatch).
+
+AI Agent adapts as more fraudulent samples are added (active learning).
+
+3. AI Agent for Fraud Analysis
+
+Evaluate claim confidence score (0–100 fraud likelihood).
+
+Cross-check with historical claims dataset.
+
+Provide explainability (Grad-CAM heatmaps showing suspicious regions).
+
+4. Interactive Dashboard UI
+
+Built with React + TailwindCSS.
+
+Dashboard includes:
+
+📊 Fraud Detection Overview → total claims analyzed, fraud ratio.
+
+🖼 Image Analysis Viewer → side-by-side original + fraud heatmap.
+
+📈 Fraud Trends → fraud attempts over time.
+
+🧑‍🤝‍🧑 Customer Claim Insights → risky claimants.
+
+5. Reports
+
+Generate PDF/Excel reports per claim:
+
+Fraud likelihood score.
+
+Highlighted tampered regions.
+
+Metadata inconsistencies.
+
+Recommendation (approve/reject/needs review).
+
+6. UI/UX Enhancements
+
+Card-based modern layout.
+
+Drag-and-drop image upload.
+
+Dark/light theme toggle.
+
+Search & filter claims.
+
+One-click Export Report.
+
+7. Testing & Validation
+
+Upload sample fraud & genuine claim datasets.
+
+Validate accuracy using test dataset.
+
+Unit tests for image preprocessing, metadata extraction, fraud scoring, and reporting.
+
+⚙️ Technical Approach
+
+Backend: FastAPI (Python)
+
+Frontend: React + TailwindCSS (or Replit HTML/CSS template for quick UI)
+
+ML/CV Libraries: TensorFlow/Keras or PyTorch, OpenCV, scikit-learn
+
+Visualization: matplotlib, Plotly, Grad-CAM heatmaps
+
+Database: SQLite (store claim records, image hashes, fraud scores)
+
+Reports: ReportLab (PDF), openpyxl (Excel)
