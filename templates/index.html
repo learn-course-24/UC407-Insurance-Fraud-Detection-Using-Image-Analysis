@@ -376,7 +376,8 @@
                                     </div>
                                     <h4 class="text-lg font-semibold text-gray-900 mb-2">Daily Report</h4>
                                     <p class="text-sm text-gray-500 mb-4">Summary of today's fraud detection activities</p>
-                                    <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                    <button id="dailyReportBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                        <i data-lucide="download" class="w-4 h-4 inline mr-2"></i>
                                         Generate
                                     </button>
                                 </div>
@@ -387,7 +388,8 @@
                                     </div>
                                     <h4 class="text-lg font-semibold text-gray-900 mb-2">Analytics Report</h4>
                                     <p class="text-sm text-gray-500 mb-4">Detailed analysis and trends over time</p>
-                                    <button class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                                    <button id="analyticsReportBtn" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                                        <i data-lucide="bar-chart-3" class="w-4 h-4 inline mr-2"></i>
                                         Generate
                                     </button>
                                 </div>
@@ -398,7 +400,8 @@
                                     </div>
                                     <h4 class="text-lg font-semibold text-gray-900 mb-2">Risk Assessment</h4>
                                     <p class="text-sm text-gray-500 mb-4">Comprehensive risk evaluation report</p>
-                                    <button class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                                    <button id="riskAssessmentBtn" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                                        <i data-lucide="shield-check" class="w-4 h-4 inline mr-2"></i>
                                         Generate
                                     </button>
                                 </div>
@@ -785,6 +788,42 @@
         // Export claims functionality
         document.getElementById('exportClaims').addEventListener('click', () => {
             window.location.href = '/api/export_claims';
+        });
+
+        // Report generation functionality
+        function generateReport(reportType, buttonId) {
+            const button = document.getElementById(buttonId);
+            const originalText = button.innerHTML;
+            
+            // Show loading state
+            button.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 inline mr-2 animate-spin"></i>Generating...';
+            button.disabled = true;
+            lucide.createIcons();
+            
+            // Generate report
+            window.location.href = `/generate_${reportType}`;
+            
+            // Reset button after a delay
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.disabled = false;
+                lucide.createIcons();
+            }, 2000);
+        }
+
+        // Daily Report
+        document.getElementById('dailyReportBtn').addEventListener('click', () => {
+            generateReport('daily_report', 'dailyReportBtn');
+        });
+
+        // Analytics Report
+        document.getElementById('analyticsReportBtn').addEventListener('click', () => {
+            generateReport('analytics_report', 'analyticsReportBtn');
+        });
+
+        // Risk Assessment Report
+        document.getElementById('riskAssessmentBtn').addEventListener('click', () => {
+            generateReport('risk_assessment', 'riskAssessmentBtn');
         });
 
         function updateRecentClaimsTable(claims) {
