@@ -320,6 +320,11 @@ def dashboard_api():
     stats = fraud_detector.get_dashboard_stats()
     return jsonify(stats)
 
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    """Serve uploaded images"""
+    return send_file(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
 @app.route('/api/export_claims')
 def export_claims():
     """Export all claims to CSV"""
